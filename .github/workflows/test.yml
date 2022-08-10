@@ -18,7 +18,7 @@ jobs:
             repos:
               - name: ${{ github.repository }}
                 do_stale: true
-                stale_label: Stale
+                stale_label: stale
                 wip_label: WIP
                 do_open_prs: true
                 do_merged_prs: true
