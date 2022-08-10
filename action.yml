@@ -28,6 +28,7 @@ runs:
       if: steps.cache-venv.outputs.cache-hit != 'true'
       shell: bash
     - run: |
+        . ./.venv/bin/activate
         echo "${{ inputs.config }}" | tee config.yml
         since=$(date --date="${{ inputs.since }}" +'%Y-%m-%d %H:%M:%S')
         mtng generate --token ${{ github.GITHUB_TOKEN }} --since ${since} config.yml
