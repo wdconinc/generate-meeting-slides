@@ -4,6 +4,9 @@ branding:
   icon: 'monitor'
   color: 'blue'
 inputs:
+  config:
+    description: 'Configuration yaml snippet'
+    required: true
   since:
     description: 'Meta-date since when slides should be made'
     required: false
@@ -13,6 +16,7 @@ runs:
   steps:
     - run: |
         python -m pip install mtng
+        echo ${{ inputs.config }}
         since=$(date --date="${{ inputs.since }}" +'%Y-%m-%d %H:%M:%S')
         mtng generate --token ${{ github.GITHUB_TOKEN }} --since ${since}
       shell: bash
