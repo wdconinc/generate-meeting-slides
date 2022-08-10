@@ -1,0 +1,17 @@
+name: 'Generate meeting slides'
+description: 'Create a pdf presentation with PR and issue overview'
+branding:
+  icon: 'monitor'
+  color: 'blue'
+inputs:
+  since:
+    description: 'Meta-date since when slides should be made'
+    required: false
+    default: '1 week ago'
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        python -m pip install mtng
+        since=$(date --date="${{ inputs.since }}" +'%Y-%m-%d %H:%M:%S')
+        mtng generate --token ${{ github.GITHUB_TOKEN }} --since ${since}
