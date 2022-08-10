@@ -31,5 +31,13 @@ runs:
         . ./.venv/bin/activate
         echo "${{ inputs.config }}" | tee config.yml
         since=$(date --date="${{ inputs.since }}" +'%Y-%m-%d %H:%M:%S')
-        mtng generate --token="${{ github.token }}" --since="${since}" config.yml
+        mtng generate --token="${{ github.token }}" --since="${since}" config.yml | tee slides.tex
       shell: bash
+    - uses: xu-cheng/latex-action@v2
+      with:
+        root_file: |
+          ${{ github.action_path }}/presentation.tex
+    - uses: actions/upload-artifact@v3
+      with:
+        name: presentation.pdf
+        path: presentation.pdf
