@@ -12,7 +12,7 @@ This action has no prerequisites.
 
 You can use this GitHub Action in your own repository with `uses: eic/generate-meeting-slides@v1`.
 
-A minimal job example for GitHub-hosted runners of type `ubuntu-latest`:
+A minimal job example is:
 ```yaml
 on:
   schedule:
@@ -25,5 +25,5 @@ jobs:
     steps:
     - uses: eic/generate-meeting-slides@v1
       with:
-        interval: "week"
+        since: "1 week ago"
 ```
