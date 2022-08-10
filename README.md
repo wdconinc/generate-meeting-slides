@@ -1,5 +1,5 @@
 # GitHub Action to Generate Developer Meeting Slides
-[![Test](https://github.com/wdconinc/generate-meeting-slides/actions/workflows/test.yml/badge.svg)](https://github.com/wdconinc/generate-meeting-slides/actions/workflows/test.yml)
+[![Test](https://github.com/eic/generate-meeting-slides/actions/workflows/test.yml/badge.svg)](https://github.com/eic/generate-meeting-slides/actions/workflows/test.yml)
 
 This GitHub Action produces developer meeting slides with issues, PRs, etc..., during a specified period.
 
