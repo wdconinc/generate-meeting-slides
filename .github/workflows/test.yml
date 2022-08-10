@@ -19,7 +19,7 @@ jobs:
               - name: ${{ github.repository }}
                 do_stale: true
                 stale_label: Stale
-                wip_label: ":construction: WIP"
+                wip_label: WIP
                 do_open_prs: true
                 do_merged_prs: true
                 do_recent_issues: true
