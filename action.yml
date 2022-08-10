@@ -33,9 +33,13 @@ runs:
       shell: bash
     - run: |
         . ./.venv/bin/activate
-        echo "${{ inputs.config }}" | tee config.yml
         since=$(date --date="${{ inputs.since }}" +'%Y-%m-%d %H:%M:%S')
+        echo "::group::config.yml"
+        echo "${{ inputs.config }}" | tee config.yml
+        echo "::endgroup::"
+        echo "::group::slides.tex"
         mtng generate --token="${{ github.token }}" --since="${since}" config.yml | tee slides.tex
+        echo "::endgroup::"
       shell: bash
     - uses: xu-cheng/latex-action@v2
       with:
