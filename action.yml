@@ -31,6 +31,5 @@ runs:
         . ./.venv/bin/activate
         echo "${{ inputs.config }}" | tee config.yml
         since=$(date --date="${{ inputs.since }}" +'%Y-%m-%d %H:%M:%S')
-        echo "${since}"
-        mtng generate --token=${{ github.token }} --since=${since} config.yml
+        mtng generate --token="${{ github.token }}" --since="${since}" config.yml
       shell: bash
