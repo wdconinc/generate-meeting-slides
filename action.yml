@@ -15,3 +15,4 @@ runs:
         python -m pip install mtng
         since=$(date --date="${{ inputs.since }}" +'%Y-%m-%d %H:%M:%S')
         mtng generate --token ${{ github.GITHUB_TOKEN }} --since ${since}
+      shell: bash
