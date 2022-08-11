@@ -26,9 +26,11 @@ runs:
         restore-keys: |
           ${{ runner.os }}-venv-
     - run: |
+        echo "::group::pip install -r requirements"
         python -m venv ./.venv
         . ./.venv/bin/activate
         pip install -r ${{ github.action_path }}/requirements.txt
+        echo "::endgroup::"
       if: steps.cache-venv.outputs.cache-hit != 'true'
       shell: bash
     - id: mtng
