@@ -23,7 +23,7 @@ jobs:
   generate-weekly-meeting-slides:
     runs-on: ubuntu-latest
     steps:
-    - uses: eic/generate-meeting-slides@v1
+    - uses: eic/generate-meeting-slides@v2
       with:
         since: "1 week ago"
         config: |
