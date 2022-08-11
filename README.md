@@ -26,4 +26,13 @@ jobs:
     - uses: eic/generate-meeting-slides@v1
       with:
         since: "1 week ago"
+        config: |
+          repos:
+            - name: ${{ github.repository }}
+              do_stale: true
+              stale_label: stale
+              wip_label: WIP
+              do_open_prs: true
+              do_merged_prs: true
+              do_recent_issues: true
 ```
