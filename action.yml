@@ -49,7 +49,9 @@ runs:
             echo "Using presentation.yml already in workspace"
           else
             echo "Copying action_path/presentation.yml to workspace"
-            cp ${{ github.action_path }}/presentation.yml .
+            echo "${{ github.workspace }}"
+            echo "${{ github.action_path }}"
+            cp ${{ github.workspace }}/${{ github.action_path }}/presentation.yml .
           fi
           dir="."
           file="presentation"
