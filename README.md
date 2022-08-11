@@ -10,7 +10,7 @@ This action has no prerequisites.
 
 ### Example
 
-You can use this GitHub Action in your own repository with `uses: eic/generate-meeting-slides@v1`.
+You can use this GitHub Action in your own repository with `uses: eic/generate-meeting-slides@v2`.
 
 A minimal job example is:
 ```yaml
