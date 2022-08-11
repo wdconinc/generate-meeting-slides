@@ -26,7 +26,7 @@ runs:
         restore-keys: |
           ${{ runner.os }}-venv-
     - run: |
-        echo "::group::pip install -r requirements"
+        echo "::group::pip install -r requirements.txt"
         python -m venv ./.venv
         . ./.venv/bin/activate
         pip install -r ${{ github.action_path }}/requirements.txt
@@ -45,13 +45,11 @@ runs:
         echo "::endgroup::"
         echo "::group::Resolve main tex file"
         if [ -z "${{ inputs.presentation }}" ] ; then
-          if [ -f "presentation.yml" ] ; then
-            echo "Using presentation.yml already in workspace"
+          if [ -f "presentation.tex" ] ; then
+            echo "Using presentation.tex already in workspace"
           else
-            echo "Copying action_path/presentation.yml to workspace"
-            echo "${{ github.workspace }}"
-            echo "${{ github.action_path }}"
-            cp ${{ github.workspace }}/${{ github.action_path }}/presentation.yml .
+            echo "Copying action_path/presentation.tex to workspace"
+            cp ${{ github.action_path }}/presentation.tex .
           fi
           dir="."
           file="presentation"
@@ -71,7 +69,7 @@ runs:
     - uses: xu-cheng/latex-action@v2
       with:
         root_file: |
-          ${{ steps.mtng.outputs.dir }}/${{ steps.mtng.outputs.file }}
+          ${{ steps.mtng.outputs.dir }}/${{ steps.mtng.outputs.file }}.tex
     - uses: actions/upload-artifact@v3
       with:
         name: ${{ steps.mtng.outputs.file }}
