@@ -31,7 +31,8 @@ runs:
         pip install -r ${{ github.action_path }}/requirements.txt
       if: steps.cache-venv.outputs.cache-hit != 'true'
       shell: bash
-    - run: |
+    - id: mtng
+      run: |
         . ./.venv/bin/activate
         since=$(date --date="${{ inputs.since }}" +'%Y-%m-%d %H:%M:%S')
         echo "::group::config.yml"
@@ -40,12 +41,34 @@ runs:
         echo "::group::slides.tex"
         mtng generate --token="${{ github.token }}" --since="${since}" config.yml | tee slides.tex
         echo "::endgroup::"
+        echo "::group::Resolve main tex file"
+        if [ -z "${{ inputs.presentation }}" ] ; then
+          if [ -f "presentation.yml" ] ; then
+            echo "Using presentation.yml already in workspace"
+          else
+            echo "Copying action_path/presentation.yml to workspace"
+            cp ${{ github.action_path }}/presentation.yml .
+          fi
+          dir="."
+          file="presentation"
+        else
+          if [ -f "${{ inputs.presentation }}" ] ; then
+            echo "Using specified presentation file, ${{ inputs.presentation }}"
+          else
+            echo "::error::Unable to find ${{ inputs.presentation }}"
+          fi
+          dir="$(dirname ${{ inputs.presentation }})"
+          file="$(basename ${{ inputs.presentation }})"
+        fi
+        echo "::set-output name=dir::${dir}"
+        echo "::set-output name=file::${file}"
+        echo "::endgroup::"
       shell: bash
     - uses: xu-cheng/latex-action@v2
       with:
         root_file: |
-          presentation.tex
+          ${{ steps.mtng.outputs.dir }}/${{ steps.mtng.outputs.file }}
     - uses: actions/upload-artifact@v3
       with:
-        name: presentation.pdf
-        path: presentation.pdf
+        name: ${{ steps.mtng.outputs.file }}
+        path: ${{ steps.mtng.outputs.file }}.pdf
